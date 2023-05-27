@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Art Portfolio</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="Info.html">Information</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="Contact.html">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <div class="text">
+      <h2>Making a change starts with one conversation</h2>
+      <p>Fill in the form below to book a Commission with me.</p>
+
+      <form id="contactForm" onsubmit="validateForm(event)">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" required><br><br>
+
+        <label for="message">Message:</label><br>
+        <textarea id="message" required></textarea><br><br>
+
+        <button type="submit" class="button">Submit</button>
+      </form>
+
+      <div id="formOutput" style="display: none;">
+        <h3>Form Submission Output:</h3>
+        <p>Name: <span id="outputName"></span></p>
+        <p>Email: <span id="outputEmail"></span></p>
+        <p>Message: <span id="outputMessage"></span></p>
+      </div>
+    </div>
+
+    <img class="image" src="Amir El Amari aka CYPHER.jpg" alt="Artwork">
+  </main>
+
+  <script>
+    function validateForm(event) {
+      event.preventDefault(); // Prevent form submission
+
+      // Retrieve form input values
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var message = document.getElementById('message').value;
+
+      // Perform validation
+      var errors = [];
+
+      if (name.trim() === '') {
+        errors.push('Name is required');
+      }
+
+      if (email.trim() === '') {
+        errors.push('Email is required');
+      } else if (!isValidEmail(email)) {
+        errors.push('Invalid email address');
+      }
+
+      if (message.trim() === '') {
+        errors.push('Message is required');
+      }
+
+      // Display errors or submit the form
+      if (errors.length > 0) {
+        var errorContainer = document.createElement('div');
+        errorContainer.className = 'error';
+        errorContainer.innerHTML = '<p>' + errors.join('</p><p>') + '</p>';
+        document.body.appendChild(errorContainer);
+      } else {
+        // Display form output
+        document.getElementById('outputName').textContent = name;
+        document.getElementById('outputEmail').textContent = email;
+        document.getElementById('outputMessage').textContent = message;
+        document.getElementById('formOutput').style.display = 'block';
+
+        // Process the form data (e.g., send it to the server)
+        // Replace this with your own code to handle form submission
+
+        // Clear form inputs
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('message').value = '';
+
+        alert('Form submitted successfully!');
+      }
+    }
+
+    function isValidEmail(email) {
+      // Simple email validation regex pattern
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailPattern.test(email);
+    }
+  </script>
+</body>
+</html>

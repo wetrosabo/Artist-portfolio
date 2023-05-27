@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contact Form</title>
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Contact Form</h1>
+
+  <form id="contactForm" onsubmit="validateForm(event)">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required>
+
+    <label for="message">Message:</label>
+    <textarea id="message" required></textarea>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    function validateForm(event) {
+      event.preventDefault(); // Prevent form submission
+
+      // Retrieve form input values
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var message = document.getElementById('message').value;
+
+      // Perform validation
+      var errors = [];
+
+      if (name.trim() === '') {
+        errors.push('Name is required');
+      }
+
+      if (email.trim() === '') {
+        errors.push('Email is required');
+      } else if (!isValidEmail(email)) {
+        errors.push('Invalid email address');
+      }
+
+      if (message.trim() === '') {
+        errors.push('Message is required');
+      }
+
+      // Display errors or submit the form
+      if (errors.length > 0) {
+        var errorContainer = document.createElement('div');
+        errorContainer.className = 'error';
+        errorContainer.innerHTML = '<p>' + errors.join('</p><p>') + '</p>';
+        document.body.appendChild(errorContainer);
+      } else {
+        // Process the form data (e.g., send it to the server)
+        // Replace this with your own code to handle form submission
+
+        // Clear form inputs
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('message').value = '';
+
+        alert('Form submitted successfully!');
+      }
+    }
+
+    function isValidEmail(email) {
+      // Simple email validation regex pattern
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailPattern.test(email);
+    }
+  </script>
+</body>
+</html>
+
